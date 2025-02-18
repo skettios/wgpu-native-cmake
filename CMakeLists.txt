@@ -23,17 +23,20 @@ ExternalProject_Add(
 )
 
 ExternalProject_Get_Property(wgpu-git SOURCE_DIR)
-add_library(wgpu STATIC IMPORTED)
+add_library(wgpu STATIC IMPORTED GLOBAL)
 add_dependencies(wgpu wgpu-git)
 set_target_properties(
     wgpu
     PROPERTIES 
         IMPORTED_LOCATION ${SOURCE_DIR}/target/release/wgpu_native.lib
         IMPORTED_LOCATION_DEBUG ${SOURCE_DIR}/target/debug/wgpu_native.lib
+        IMPORTED_CONFIGURATIONS "RELEASE;DEBUG"
 )
-include_directories(
-    ${SOURCE_DIR}/ffi
-    ${SOURCE_DIR}/ffi/webgpu-headers
+target_include_directories(
+    wgpu
+    INTERFACE
+        ${SOURCE_DIR}/ffi
+        ${SOURCE_DIR}/ffi/webgpu-headers
 )
 target_link_libraries(
     wgpu
