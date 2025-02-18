@@ -24,6 +24,7 @@ ExternalProject_Add(
 
 ExternalProject_Get_Property(wgpu-git SOURCE_DIR)
 add_library(wgpu STATIC IMPORTED)
+add_dependencies(wgpu wgpu-git)
 set_target_properties(
     wgpu
     PROPERTIES 
