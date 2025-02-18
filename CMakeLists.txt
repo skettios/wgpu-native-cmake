@@ -5,7 +5,7 @@ project(
 
 include(ExternalProject)
 ExternalProject_Add(
-    wgpu
+    wgpu-git
     GIT_REPOSITORY https://github.com/gfx-rs/wgpu-native.git
     GIT_TAG v22.1.0.5
     GIT_SUBMODULES_RECURSE ON
@@ -22,7 +22,7 @@ ExternalProject_Add(
     INSTALL_COMMAND ""
 )
 
-ExternalProject_Get_Property(wgpu SOURCE_DIR)
+ExternalProject_Get_Property(wgpu-git SOURCE_DIR)
 add_library(wgpu-native STATIC IMPORTED)
 set_target_properties(
     wgpu-native 
@@ -44,5 +44,12 @@ target_link_libraries(
         userenv
         bcrypt
         ntdll
+)
+
+add_library(wgpu STATIC)
+target_link_libraries(
+    wgpu
+    PUBLIC
+        wgpu-native
 )
 
