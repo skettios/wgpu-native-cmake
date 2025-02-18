@@ -46,7 +46,7 @@ target_link_libraries(
         ntdll
 )
 
-add_library(wgpu STATIC)
+add_library(wgpu INTERFACE)
 target_link_libraries(
     wgpu
     PUBLIC
