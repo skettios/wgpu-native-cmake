@@ -32,7 +32,7 @@ set_target_properties(
 )
 target_include_directories(
     wgpu-native
-    PUBLIC
+    INTERFACE
         ${SOURCE_DIR}/ffi
         ${SOURCE_DIR}/ffi/webgpu-headers
 )
