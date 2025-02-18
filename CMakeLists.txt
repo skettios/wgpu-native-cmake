@@ -13,13 +13,14 @@ ExternalProject_Add(
     CONFIGURE_COMMAND ""
 
     BUILD_IN_SOURCE ON
-    BUILD_COMMAND cargo build && cargo build --release
-    BUILD_BYPRODUCTS
-        wgpu-prefix/src/wgpu/target/debug/wgpu_native.lib
-        wgpu-prefix/src/wgpu/target/release/wgpu_native.lib
+    BUILD_COMMAND ""
+    # BUILD_COMMAND cargo build && cargo build --release
 
     UPDATE_COMMAND ""
-    INSTALL_COMMAND ""
+    INSTALL_COMMAND cargo build && cargo build --release
+    INSTALL_BYPRODUCTS
+        wgpu-prefix/src/wgpu/target/debug/wgpu_native.lib
+        wgpu-prefix/src/wgpu/target/release/wgpu_native.lib
 
     STEP_TARGETS build
 )
