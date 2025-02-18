@@ -20,8 +20,6 @@ ExternalProject_Add(
 
     UPDATE_COMMAND ""
     INSTALL_COMMAND ""
-
-    STEP_TARGETS build
 )
 
 ExternalProject_Get_Property(wgpu-git SOURCE_DIR)
