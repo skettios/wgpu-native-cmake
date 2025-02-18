@@ -1,0 +1,48 @@
+cmake_minimum_required(VERSION 3.20)
+project(
+    wgpu-native-cmake
+)
+
+include(ExternalProject)
+ExternalProject_Add(
+    wgpu
+    GIT_REPOSITORY https://github.com/gfx-rs/wgpu-native.git
+    GIT_TAG v22.1.0.5
+    GIT_SUBMODULES_RECURSE ON
+
+    CONFIGURE_COMMAND ""
+
+    BUILD_IN_SOURCE ON
+    BUILD_COMMAND cargo build && cargo build --release
+    BUILD_BYPRODUCTS
+        wgpu-prefix/src/wgpu/target/debug/wgpu_native.lib
+        wgpu-prefix/src/wgpu/target/release/wgpu_native.lib
+
+    UPDATE_COMMAND ""
+    INSTALL_COMMAND ""
+)
+
+ExternalProject_Get_Property(wgpu SOURCE_DIR)
+add_library(wgpu-native STATIC IMPORTED)
+set_target_properties(
+    wgpu-native 
+    PROPERTIES 
+        IMPORTED_LOCATION ${SOURCE_DIR}/target/release/wgpu_native.lib
+        IMPORTED_LOCATION_DEBUG ${SOURCE_DIR}/target/debug/wgpu_native.lib
+)
+target_include_directories(
+    wgpu-native
+    PUBLIC
+        ${SOURCE_DIR}/ffi
+        ${SOURCE_DIR}/ffi/webgpu-headers
+)
+target_link_libraries(
+    wgpu-native
+    INTERFACE
+        d3dcompiler
+        ws2_32
+        userenv
+        bcrypt
+        ntdll
+)
+
