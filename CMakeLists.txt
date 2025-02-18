@@ -23,7 +23,7 @@ ExternalProject_Add(
 )
 
 ExternalProject_Get_Property(wgpu-git SOURCE_DIR)
-add_library(wgpu-native STATIC IMPORTED)
+add_library(wgpuSTATIC IMPORTED)
 set_target_properties(
     wgpu
     PROPERTIES 
@@ -35,7 +35,7 @@ include_directories(
     ${SOURCE_DIR}/ffi/webgpu-headers
 )
 target_link_libraries(
-    wgpu-native
+    wgpu
     INTERFACE
         d3dcompiler
         ws2_32
