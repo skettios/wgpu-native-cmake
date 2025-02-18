@@ -13,20 +13,19 @@ ExternalProject_Add(
     CONFIGURE_COMMAND ""
 
     BUILD_IN_SOURCE ON
-    BUILD_COMMAND ""
-    # BUILD_COMMAND cargo build && cargo build --release
+    BUILD_COMMAND cargo build && cargo build --release
+    BUILD_BYPRODUCTS
+        wgpu-git-prefix/src/wgpu/target/debug/wgpu_native.lib
+        wgpu-git-prefix/src/wgpu/target/release/wgpu_native.lib
 
     UPDATE_COMMAND ""
-    INSTALL_COMMAND cargo build && cargo build --release
-    INSTALL_BYPRODUCTS
-        wgpu-prefix/src/wgpu/target/debug/wgpu_native.lib
-        wgpu-prefix/src/wgpu/target/release/wgpu_native.lib
+    INSTALL_COMMAND ""
 
     STEP_TARGETS build
 )
 
 ExternalProject_Get_Property(wgpu-git SOURCE_DIR)
-add_library(wgpu STATIC IMPORTED GLOBAL)
+add_library(wgpu STATIC IMPORTED)
 add_dependencies(wgpu wgpu-git)
 set_target_properties(
     wgpu
