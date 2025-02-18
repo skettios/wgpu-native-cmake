@@ -46,5 +46,6 @@ target_link_libraries(
         userenv
         bcrypt
         ntdll
+        opengl32
 )
 
