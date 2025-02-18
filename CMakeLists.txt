@@ -25,16 +25,14 @@ ExternalProject_Add(
 ExternalProject_Get_Property(wgpu-git SOURCE_DIR)
 add_library(wgpu-native STATIC IMPORTED)
 set_target_properties(
-    wgpu-native 
+    wgpu
     PROPERTIES 
         IMPORTED_LOCATION ${SOURCE_DIR}/target/release/wgpu_native.lib
         IMPORTED_LOCATION_DEBUG ${SOURCE_DIR}/target/debug/wgpu_native.lib
 )
-target_include_directories(
-    wgpu-native
-    INTERFACE
-        ${SOURCE_DIR}/ffi
-        ${SOURCE_DIR}/ffi/webgpu-headers
+include_directories(
+    ${SOURCE_DIR}/ffi
+    ${SOURCE_DIR}/ffi/webgpu-headers
 )
 target_link_libraries(
     wgpu-native
@@ -44,12 +42,5 @@ target_link_libraries(
         userenv
         bcrypt
         ntdll
-)
-
-add_library(wgpu INTERFACE)
-target_link_libraries(
-    wgpu
-    PUBLIC
-        wgpu-native
 )
 
