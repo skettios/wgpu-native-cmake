@@ -20,6 +20,8 @@ ExternalProject_Add(
 
     UPDATE_COMMAND ""
     INSTALL_COMMAND ""
+
+    STEP_TARGETS build
 )
 
 ExternalProject_Get_Property(wgpu-git SOURCE_DIR)
@@ -34,7 +36,6 @@ set_target_properties(
 )
 target_include_directories(
     wgpu
-    AFTER
     INTERFACE
         ${SOURCE_DIR}/ffi
         ${SOURCE_DIR}/ffi/webgpu-headers
